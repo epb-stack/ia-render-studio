@@ -48,11 +48,11 @@ const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemi
 const GEMINI_TEXT_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`;
 
 const RENDER_STYLES = [
-  { id: "photorealistic", label: "Fotorrealista", prompt: "photorealistic architectural render with natural lighting, high detail, 8K quality, realistic materials and textures" },
-  { id: "modern", label: "Moderno", prompt: "modern contemporary architectural render with clean lines, minimalist aesthetics, neutral tones, large windows" },
-  { id: "minimalist", label: "Minimalista", prompt: "minimalist architectural render with simple forms, white and light gray palette, clean spaces, subtle shadows" },
-  { id: "luxury", label: "Luxo", prompt: "luxury high-end architectural render with premium materials, marble, gold accents, dramatic lighting, opulent finishes" },
-  { id: "night", label: "Noturno", prompt: "nighttime architectural render with warm interior lighting glowing through windows, dramatic exterior illumination, moody atmosphere" },
+  { id: "photorealistic", label: "Fotorrealista", prompt: "ultra-realistic V-Ray photorealistic architectural visualization, shot with Canon EOS R5, 24mm tilt-shift lens, f/8, natural sunlight streaming through windows, physically accurate materials with bump maps and displacement, raytraced reflections on glass and polished surfaces, volumetric light with dust particles, global illumination, ambient occlusion, soft shadows, color grading similar to Architectural Digest magazine photography, 8K resolution" },
+  { id: "modern", label: "Moderno", prompt: "contemporary modern architectural interior render in the style of Studio McGee and Norm Architects, clean Scandinavian-inspired design, floor-to-ceiling windows with sheer curtains, neutral warm palette with beige, cream and soft gray tones, natural oak wood flooring, fluted wall panels, curved organic furniture, statement pendant lighting, lush indoor plants, soft diffused natural light, shallow depth of field, editorial photography style" },
+  { id: "minimalist", label: "Minimalista", prompt: "Japanese-inspired minimalist architectural render in the style of Tadao Ando and John Pawson, pure white concrete walls with subtle texture, dramatic natural light cutting through narrow openings, extreme simplicity with intentional negative space, monolithic forms, water features reflecting light, bamboo accents, wabi-sabi aesthetic, single statement furniture piece, contemplative atmosphere, shot at golden hour with long shadows" },
+  { id: "luxury", label: "Luxo", prompt: "ultra-luxurious high-end penthouse architectural visualization, Calacatta Viola marble with dramatic purple veining, brushed brass and champagne gold metal accents, custom Italian furniture with rich velvet and leather upholstery, herringbone parquet flooring, coffered ceiling with recessed LED cove lighting, crystal chandelier, floor-to-ceiling panoramic windows with city skyline view, art gallery wall with statement piece, warm dramatic lighting with accent spots" },
+  { id: "night", label: "Noturno", prompt: "cinematic nighttime architectural visualization, moody blue hour exterior with deep indigo sky gradient, warm amber 2700K interior lighting glowing through floor-to-ceiling windows, landscape lighting with uplights on trees and architectural features, pool or water feature reflecting warm lights, exterior pathway lighting, starry sky, long exposure photography style with light trails, volumetric fog, dramatic contrast between warm interior and cool exterior" },
 ];
 
 function RenderTool() {
@@ -126,13 +126,14 @@ function RenderTool() {
       const parts = [];
       if (imageBase64) parts.push({ inlineData: { mimeType: imageMime, data: imageBase64 } });
 
+      const systemCtx = "You are a world-class architectural visualization artist specializing in photorealistic interior and exterior renders. You produce images indistinguishable from professional photography published in Architectural Digest, Dezeen, and ArchDaily. Every render must have: physically accurate lighting and shadows, realistic material textures with proper reflections, professional composition following the rule of thirds, appropriate depth of field, and a cinematic color grade.";
       let textPrompt;
       if (imageBase64 && prompt.trim()) {
-        textPrompt = `Transform this image into a ${styleObj.prompt}. Additional instructions: ${prompt.trim()}`;
+        textPrompt = `${systemCtx}\n\nTransform this reference image into a high-end professional architectural render with the following style: ${styleObj.prompt}.\n\nUser specifications: ${prompt.trim()}\n\nMaintain the spatial layout and architectural proportions from the reference. Enhance all materials, lighting, and atmosphere to match the requested style. Output a single stunning architectural visualization image.`;
       } else if (imageBase64) {
-        textPrompt = `Transform this image into a ${styleObj.prompt}. Keep the same composition and architectural elements.`;
+        textPrompt = `${systemCtx}\n\nTransform this reference image into a high-end professional architectural render with the following style: ${styleObj.prompt}.\n\nKeep the same room layout, furniture placement, and architectural elements. Dramatically upgrade all materials, lighting, textures, and atmospheric effects. Output a single stunning architectural visualization image.`;
       } else {
-        textPrompt = `Create a ${styleObj.prompt} of: ${prompt.trim()}. Professional architectural visualization.`;
+        textPrompt = `${systemCtx}\n\nGenerate a high-end professional architectural visualization of: ${prompt.trim()}\n\nStyle direction: ${styleObj.prompt}\n\nThe image must look like a real photograph taken by a professional architectural photographer. Include realistic furniture, decor, materials, and vegetation. Output a single stunning architectural visualization image.`;
       }
       parts.push({ text: textPrompt });
 
