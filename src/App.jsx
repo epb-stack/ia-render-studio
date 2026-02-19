@@ -5,15 +5,15 @@ const COLORS = {
   text: "#4a4540", textLight: "#7a7570", white: "#faf8f4", black: "#1a1815",
 };
 
-const HERO_IMG = "/images/hero-render.jpg";
+const HERO_IMG = `${process.env.PUBLIC_URL}/images/hero-render.jpg`;
 
 const PROJECTS = [
-  { title: "Loft Urbano", category: "RESIDENCIAL", year: "2024", image: "/images/project-1.jpg" },
-  { title: "Terraço Panorâmico", category: "RESIDENCIAL", year: "2024", image: "/images/project-2.jpg" },
-  { title: "Museu de Arte Contemporânea", category: "INSTITUCIONAL", year: "2023", image: "/images/project-3.jpg" },
-  { title: "Villa Tropical", category: "RESIDENCIAL", year: "2023", image: "/images/project-4.jpg" },
-  { title: "Grand Hotel Lobby", category: "HOTELARIA", year: "2024", image: "/images/project-5.jpg" },
-  { title: "Cozinha Minimalista", category: "INTERIORES", year: "2024", image: "/images/project-6.jpg" },
+  { title: "Loft Urbano", category: "RESIDENCIAL", year: "2024", image: `${process.env.PUBLIC_URL}/images/project-1.jpg` },
+  { title: "Terraço Panorâmico", category: "RESIDENCIAL", year: "2024", image: `${process.env.PUBLIC_URL}/images/project-2.jpg` },
+  { title: "Museu de Arte Contemporânea", category: "INSTITUCIONAL", year: "2023", image: `${process.env.PUBLIC_URL}/images/project-3.jpg` },
+  { title: "Villa Tropical", category: "RESIDENCIAL", year: "2023", image: `${process.env.PUBLIC_URL}/images/project-4.jpg` },
+  { title: "Grand Hotel Lobby", category: "HOTELARIA", year: "2024", image: `${process.env.PUBLIC_URL}/images/project-5.jpg` },
+  { title: "Cozinha Minimalista", category: "INTERIORES", year: "2024", image: `${process.env.PUBLIC_URL}/images/project-6.jpg` },
 ];
 
 const SERVICES = [
